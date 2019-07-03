@@ -6,7 +6,7 @@ import com.unaj.reservas.microservice.dominio.Producto;
 
 public interface ProductoService {
 	
-	List<Producto> getAllServicios();
+	List<Producto> getAllProductos();
 	
-	void createServicio (Producto producto);
+	void createProducto (String descripcion, Long tipoProducto, Long estado);
 }
