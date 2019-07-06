@@ -27,7 +27,6 @@ public class ProductosRest {
 	@GetMapping (produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProductosResponse> getProductos() {
 		List<ProductosResponse> productos = productoService.getAllProductos();
-
 		return productos;
 	}
 

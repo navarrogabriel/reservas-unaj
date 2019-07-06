@@ -2,6 +2,7 @@ package com.unaj.reservas.microservice.service.impl;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import com.unaj.reservas.microservice.repository.EstadoRepository;
 import com.unaj.reservas.microservice.repository.ProductoRepository;
 import com.unaj.reservas.microservice.repository.ReservaRepository;
 import com.unaj.reservas.microservice.repository.UsuarioRepository;
+import com.unaj.reservas.microservice.response.ReservasResponse;
 import com.unaj.reservas.microservice.service.ReservaService;
 
 @Service
@@ -27,7 +29,7 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Autowired
 	private ReservaRepository reservaRepository;
-
+	
 	@Autowired
 	private ProductoRepository productoRepository;
 
@@ -40,12 +42,6 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public List<Reserva> getAllReservas() {
 		return (List<Reserva>) reservaRepository.findAll();
-	}
-
-	@Override
-	public List<Reserva> getAllReservasByUsuario(Long idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -90,6 +86,24 @@ public class ReservaServiceImpl implements ReservaService {
 
 	private Date getDateFromLocalDate(LocalDate dateToConvert) {
 		return java.util.Date.from(dateToConvert.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	@Override
+	public List<ReservasResponse> getAllReservasByUsuario(Long idUsuario) {
+		List<Reserva> reservaFindByIdUsuario = reservaRepository.findByIdUsuario(idUsuario);
+		List<ReservasResponse> response = new ArrayList<>();
+		ReservasResponse reservaResponse;
+		for (Reserva reserva : reservaFindByIdUsuario) {
+			reservaResponse = new ReservasResponse();
+			reservaResponse.setCodigo(reserva.getCodigo());
+			reservaResponse.setFechaFin(reserva.getFechaFin());
+			reservaResponse.setFechaInicio(reserva.getFechaInicio());
+			reservaResponse.setIdProducto(reserva.getProducto().getId());
+			reservaResponse.setIdUsuario(reserva.getUsuario().getId());
+			reservaResponse.setIdReserva(reserva.getId());
+			response.add(reservaResponse);
+		}
+		return response;
 	}
 
 }
