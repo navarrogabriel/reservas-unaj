@@ -23,12 +23,12 @@ public class ReservasRest {
 	@Autowired
 	private ReservaService reservaService;
 	
-//	@Autowired
-//	private MailSenderService mailSenderService;
+	@Autowired
+	private MailSenderService mailSenderService;
 
 	@GetMapping
 	public Respuesta getReservas() {
-		Respuesta respuesta = new Respuesta("OK", "Gonza deja de llorar");
+		Respuesta respuesta = new Respuesta("OK", "asd");
 
 		return respuesta;
 	}
@@ -42,7 +42,7 @@ public class ReservasRest {
 			return new Respuesta("ERROR", "Error al crear reserva");
 		}
 		Respuesta respuesta = new Respuesta("OK", "Reserva creada");
-		//mailSenderService.sendEmail(reservaInput.getIdUsuario(), "ASD", "ASD");
+		mailSenderService.sendEmail(reservaInput.getIdUsuario(), reservaInput.getIdProducto());
 		return respuesta;
 	}
 	
