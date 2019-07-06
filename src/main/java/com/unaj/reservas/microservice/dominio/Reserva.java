@@ -22,6 +22,7 @@ public class Reserva {
     private Producto producto;
 
     @NotNull
+    @GeneratedValue
     private String codigo;
 
     @NotNull

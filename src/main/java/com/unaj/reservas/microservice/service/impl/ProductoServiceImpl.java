@@ -1,5 +1,6 @@
 package com.unaj.reservas.microservice.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +15,7 @@ import com.unaj.reservas.microservice.exception.TipoProductoNotFoundException;
 import com.unaj.reservas.microservice.repository.EstadoRepository;
 import com.unaj.reservas.microservice.repository.ProductoRepository;
 import com.unaj.reservas.microservice.repository.TipoProductoRepository;
+import com.unaj.reservas.microservice.response.ProductosResponse;
 import com.unaj.reservas.microservice.service.ProductoService;
 
 @Service
@@ -47,8 +49,20 @@ public class ProductoServiceImpl implements ProductoService {
 		productoRepository.save(producto);
 	}
 
-	public List<Producto> getAllProductos() {
-		return (List<Producto>) productoRepository.findAll();
+	public List<ProductosResponse> getAllProductos() {
+		List<Producto> productos = (List<Producto>) productoRepository.findAll();
+		List<ProductosResponse> productoResponse = new ArrayList<>();
+		ProductosResponse response = null;
+		for (Producto producto : productos) {
+			response = new ProductosResponse();
+			response.setDescripcion(producto.getDescripcion());
+			response.setIdEstado(producto.getEstado().getId());
+			response.setIdProducto(producto.getId());
+			response.setIdTipoProducto(producto.getTipoProducto().getId());
+			productoResponse.add(response);
+		}
+		
+		return productoResponse;
 	}
 
 }
