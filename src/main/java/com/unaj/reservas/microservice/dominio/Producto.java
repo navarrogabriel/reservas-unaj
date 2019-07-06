@@ -24,7 +24,7 @@ public class Producto {
 
 	public Producto() { }
 
-	public Producto(Long id, TipoProducto tipoProducto, Estado estado, @NotNull String descripcion) {
+	private Producto(Long id, TipoProducto tipoProducto, Estado estado, @NotNull String descripcion) {
 		this.id = id;
 		this.tipoProducto = tipoProducto;
 		this.estado = estado;

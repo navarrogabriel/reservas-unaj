@@ -17,17 +17,14 @@ public class ReservaServiceImpl implements ReservaService {
 	@Autowired
 	private ReservaRepository reservaRepository;
 	
-	@Override
 	public List<Reserva> getAllReservas() {
 		return (List<Reserva>) reservaRepository.findAll();
 	}
 
-	@Override
 	public List<Reserva> getAllReservasByUsuario(Usuario usuario) {
 		return reservaRepository.findByUsuario(usuario);
 	}
 
-	@Override
 	public void createReserva(Producto producto, Usuario usuario) {
 		// TODO Auto-generated method stub
 		
